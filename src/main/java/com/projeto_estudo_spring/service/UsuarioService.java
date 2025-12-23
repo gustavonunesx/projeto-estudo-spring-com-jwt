@@ -3,8 +3,6 @@ package com.projeto_estudo_spring.service;
 
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -14,13 +12,12 @@ import com.projeto_estudo_spring.repository.UsuarioRepository;
 @Service
 public class UsuarioService {
 
-    @Autowired
     private UsuarioRepository repository;
-
     private final PasswordEncoder passwordEncoder;
 
-    public UsuarioService(UsuarioRepository repository){
-        this.passwordEncoder = new BCryptPasswordEncoder();
+    public UsuarioService(UsuarioRepository repository, PasswordEncoder passwordEncoder) {
+        this.repository = repository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public Usuario registrarUsuario(String username, String password){
