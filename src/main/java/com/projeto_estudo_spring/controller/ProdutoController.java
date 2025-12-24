@@ -2,7 +2,6 @@ package com.projeto_estudo_spring.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,8 +18,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/produto")
 public class ProdutoController {
 
-    @Autowired
     private ProdutoService service;
+
+    public ProdutoController(ProdutoService service) {
+        this.service = service;
+    }
 
     @GetMapping
     public List<Produto>getProdutos(){
@@ -29,8 +31,9 @@ public class ProdutoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?>buscarPorId(@PathVariable Long id){
-
+        //---------VERSAO SIMPLES---------------------
         //USANDO OPTIONAL
+
         // return service.buscarPorId(id)
         //     .map(ResponseEntity::ok) //se deu certo cria coleção pra responder ok
         //     .orElse(ResponseEntity.notFound().build()); // se nao   
